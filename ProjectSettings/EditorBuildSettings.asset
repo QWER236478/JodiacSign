@@ -10,7 +10,13 @@ EditorBuildSettings:
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/SelectDifficulty.unity
+    guid: 1c83b138e3de0e849b1514981df479d3
+  - enabled: 1
+    path: Assets/Scenes/GameMap.unity
     guid: 4c761411d28f4434bbb6e9aa33fcca02
+  - enabled: 1
+    path: Assets/Scenes/MonsterBattle.unity
+    guid: 8946f757d4ba122498fe0042368af028
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: fd367ba18059fda45a50805b6fffbac8,
       type: 2}
