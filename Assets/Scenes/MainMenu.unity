@@ -409,7 +409,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 1281294523}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnOptionClick
         m_Mode: 1
@@ -560,7 +560,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: NextDifficultyScene
         m_Mode: 1
@@ -975,7 +975,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 1281294523}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ContinueLockCancel
         m_Mode: 1
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ContinueLockCancel
         m_Mode: 1
@@ -1700,7 +1700,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 1281294523}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ContinueLockClick
         m_Mode: 1
@@ -1851,7 +1851,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: NextDifficultyScene
         m_Mode: 1
@@ -2616,7 +2616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1255881704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf9b84902ed3c04497f1c8d2096166a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d03105d02cff8d43a11dae1dcbe1e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BackgroundBGM: {fileID: 763776429}
@@ -2629,7 +2629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1281294522}
-  - component: {fileID: 1281294521}
+  - component: {fileID: 1281294523}
   m_Layer: 0
   m_Name: ManuManager
   m_TagString: Untagged
@@ -2637,21 +2637,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1281294521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281294520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6edc32a480c954285bf95543bd0f47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OptionPOPUP: {fileID: 8769205921494834638}
-  ContinueLock: {fileID: 1569598222}
-  ClickButton: {fileID: 181740011}
 --- !u!4 &1281294522
 Transform:
   m_ObjectHideFlags: 0
@@ -2668,6 +2653,21 @@ Transform:
   - {fileID: 181740010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1281294523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281294520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a60fba4a8933747a309c1afd99d298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OptionPOPUP: {fileID: 8769205921494834638}
+  ContinueLock: {fileID: 1569598222}
+  ClickButton: {fileID: 181740011}
 --- !u!1 &1343117713
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,7 +3493,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 1281294523}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: NextDifficultyScene
         m_Mode: 1
@@ -3670,7 +3670,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 1281294523}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnQuitClick
         m_Mode: 1
@@ -3821,7 +3821,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: NextDifficultyScene
         m_Mode: 1
@@ -4480,7 +4480,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OptionCancelClick
         m_Mode: 1
@@ -4842,7 +4842,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: NextDifficultyScene
         m_Mode: 1
@@ -5748,7 +5748,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281294521}
+      - m_Target: {fileID: 1281294523}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OptionCancelClick
         m_Mode: 1

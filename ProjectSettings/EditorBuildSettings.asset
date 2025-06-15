@@ -16,7 +16,7 @@ EditorBuildSettings:
     guid: 4c761411d28f4434bbb6e9aa33fcca02
   - enabled: 1
     path: Assets/Scenes/MonsterBattle.unity
-    guid: 8946f757d4ba122498fe0042368af028
+    guid: 99563e2d500c3bc45b904d21c3ed6496
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: fd367ba18059fda45a50805b6fffbac8,
       type: 2}
