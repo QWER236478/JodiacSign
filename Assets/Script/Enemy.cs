@@ -92,7 +92,7 @@ public class Enemy : MonoBehaviour
     void AttackEffectOff()
     {
         ParticleSystem.MainModule main = AttackEffect.GetComponent<ParticleSystem>().main;
-        main.loop.enabled = false;
+        main.loop = false;
     }
 
     public void EnemyDie()
