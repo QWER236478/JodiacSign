@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 14
-  rank: 14
-  cardClass: 0
+  rank: 2
+  cardClass: 1
   zodiacName: Tiger
 --- !u!114 &8979328776821518795
 MonoBehaviour:

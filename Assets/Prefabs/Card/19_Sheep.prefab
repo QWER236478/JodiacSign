@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 19
-  rank: 19
-  cardClass: 0
+  rank: 7
+  cardClass: 1
   zodiacName: Sheep
 --- !u!114 &-3662227749472466624
 MonoBehaviour:

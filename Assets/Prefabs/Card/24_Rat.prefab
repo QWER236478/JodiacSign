@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 24
-  rank: 24
-  cardClass: 0
+  rank: 0
+  cardClass: 2
   zodiacName: Rat
 --- !u!114 &6589527331012302574
 MonoBehaviour:

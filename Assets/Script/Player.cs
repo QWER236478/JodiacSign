@@ -1,56 +1,59 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static HandEvaluator;
 
 public class Player : MonoBehaviour
 {
-    public float maxHP;
-    public float playerHP;
-    public float playerGold;
-
+    public ShuffleCard shuffleCard;    // 카드 뽑기 스크립트 참조
+    public CardSelected cardSelected;  // 선택된 카드 관리
+    public Enemy enemy;                // 공격 대상 적
     public TextMeshProUGUI PlayerHP_Text;
-    public TextMeshProUGUI PlayerGold_Text;
+    public int playerHP;
 
-    public int attackDamage;
+    // 턴 시작 시 카드 리필 등 처리
 
-    public List<GameObject> selectedCards = new(); // 선택된 카드들
-
-
-    //public GameObject AttackEffect;
-    //public AudioSource AttackSounds;
-    //public AudioSource DyingSounds;
-    //public GameObject DieEffect;
-
-    public Enemy targetEnemy;
-    public TurnManager turnManager;
-
-    void Start()
+    public void OnTurnStart()
     {
-        maxHP = playerHP;
-        PlayerHP_Text.text = playerHP.ToString();
+        // 선택 초기화
+        cardSelected.ClearSelection();
+
+        // 필요한 카드 수 뽑기 (예: 5장)
+        int needCount = 5 - shuffleCard.drawList.Count;
+        if (needCount > 0)
+        {
+            shuffleCard.DrawCards(needCount);
+        }
     }
 
-    public void PlayerAttack()
+    // 플레이어가 공격 버튼 눌렀을 때 호출
+    public void Attack()
     {
-        if (turnManager != null && !turnManager.CanPlayerAct())
+        var selectedCards = cardSelected.GetSelectedCards();
+
+        if (selectedCards.Count == 0)
         {
-            Debug.Log("턴이 끝나 공격할 수 없음");
+            Debug.Log("카드를 선택해주세요!");
             return;
         }
 
-        Debug.Log("플레이어 공격");
+        var rank = HandEvaluator.EvaluateHand(selectedCards);
+        int damage = HandEvaluator.GetDamageByRank(rank);
 
-        //AttackEffect.SetActive(true);
-        //AttackSounds.Play();
+        Debug.Log($"공격 족보: {rank}, 데미지: {damage}");
 
-        if (targetEnemy != null)
-        {
-            targetEnemy.TakeDamage(attackDamage);
-        }
+        // 적 공격
+        enemy.TakeDamage(damage);
 
-        turnManager.OnPlayerActionDone();
+        // 공격 후 선택한 카드 제거 및 새 카드 뽑기
+        shuffleCard.RemoveCardsAndRefill(selectedCards);
+
+        // 선택 초기화
+        cardSelected.ClearSelection();
+
+        // 턴 행동 하나 소모 알림 (TurnManager에서 처리할 수 있음)
+        FindObjectOfType<TurnManager>().OnPlayerActionDone();
     }
+ 
 
     public void TakeDamage(int Damage)
     {
@@ -70,34 +73,8 @@ public class Player : MonoBehaviour
     public void PlayerDie()
     {
         Debug.Log("플레이어 사망 상태");
-       // DieEffect.SetActive(true);
+        // DieEffect.SetActive(true);
         Destroy(gameObject);
-       // DyingSounds.Play();
-    }
-    public void EvaluateAndAttack()
-    {
-        var selected = CardSelected.Instance.GetSelectedCards();
-
-        if (selected == null || selected.Count == 0)
-        {
-            Debug.LogWarning("공격 실패: 선택된 카드가 없습니다.");
-            return;
-        }
-
-        HandRank rank = HandEvaluator.EvaluateHand(selected);
-        int attackDamage = HandEvaluator.GetDamageByRank(rank);
-
-        Debug.Log($"공격! 족보: {rank}, 데미지: {attackDamage}");
-
-        // 카드 파괴
-        foreach (var card in selected)
-        {
-            Destroy(card);
-        }
-
-        // 선택 초기화
-        CardSelected.Instance.ClearSelection();
-
-        // 카드 다시 뽑을 수 있게 하려면 ShuffleCard.DrawCard() 등 호출 가능
+        // DyingSounds.Play();
     }
 }

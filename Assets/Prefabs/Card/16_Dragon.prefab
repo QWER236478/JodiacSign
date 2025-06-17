@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 16
-  rank: 16
-  cardClass: 0
+  rank: 4
+  cardClass: 1
   zodiacName: Dragon
 --- !u!114 &-3649037180217979448
 MonoBehaviour:

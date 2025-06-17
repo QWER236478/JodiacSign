@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 41
-  rank: 41
-  cardClass: 0
+  rank: 5
+  cardClass: 3
   zodiacName: Snake
 --- !u!114 &949800856497365940
 MonoBehaviour:

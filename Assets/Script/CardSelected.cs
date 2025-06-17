@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CardSelected : MonoBehaviour
 {
@@ -10,32 +8,34 @@ public class CardSelected : MonoBehaviour
     public List<GameObject> selectedCards = new();
     public int maxSelectable = 5;
 
+    public GameObject Attack_Button;
+    public GameObject Reroll_Button;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        UpdateButtonVisibility();
+    }
+
     public void ToggleCardSelection(GameObject card)
     {
         if (selectedCards.Contains(card))
         {
-            // 선택 해제
             card.transform.localPosition -= Vector3.up * 0.2f;
             selectedCards.Remove(card);
         }
         else
         {
-            if (selectedCards.Count >= maxSelectable)
-            {
-                Debug.Log("최대 선택 개수 초과");
-                return;
-            }
-
-            // 선택
+            if (selectedCards.Count >= maxSelectable) return;
             card.transform.localPosition += Vector3.up * 0.2f;
             selectedCards.Add(card);
         }
+        UpdateButtonVisibility();
     }
 
     public void ClearSelection()
@@ -46,6 +46,15 @@ public class CardSelected : MonoBehaviour
                 card.transform.localPosition -= Vector3.up * 0.2f;
         }
         selectedCards.Clear();
+
+        UpdateButtonVisibility();
+    }
+
+    private void UpdateButtonVisibility()
+    {
+        bool hasSelection = selectedCards.Count > 0;
+        if (Attack_Button != null) Attack_Button.SetActive(hasSelection);
+        if (Reroll_Button != null) Reroll_Button.SetActive(hasSelection);
     }
 
     public List<GameObject> GetSelectedCards()

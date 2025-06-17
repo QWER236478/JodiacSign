@@ -3,124 +3,79 @@ using UnityEngine;
 
 public class ShuffleCard : MonoBehaviour
 {
-    [Header("카드 설정")]
-    public List<GameObject> cardPrefabs; // 전체 카드 프리팹 리스트 (변하지 않음)
-    private List<GameObject> availableCardPool = new(); // 리롤, 공격 후 남은 카드만 저장
+    public List<GameObject> cardPrefabs;
+    private List<GameObject> availableCardPool = new();
 
-    [Header("카드 생성 위치")]
     public Transform spawnPoint;
-
-    [Header("현재 뽑힌 카드")]
     public List<GameObject> drawList = new();
 
-    void Start()
-    {
-        // 복제해서 사용: 원본 cardPrefabs 보호
-        availableCardPool = new List<GameObject>(cardPrefabs);
-        DrawInitialCards();
-    }
+    public int maxHandSize = 8;
+    public CardSelected cardSelected;
 
-    // 초기 카드 8장 뽑기
-    public void DrawInitialCards()
+    private void Start()
     {
+        availableCardPool = new List<GameObject>(cardPrefabs);
         DrawCards(8);
     }
 
-    // 특정 개수 카드 뽑기
     public void DrawCards(int count)
     {
         int drawCount = Mathf.Min(count, availableCardPool.Count);
-        List<GameObject> selectedPrefabs = new();
 
-        // 중복 없이 랜덤 카드 선택
         for (int i = 0; i < drawCount; i++)
         {
             int randIndex = Random.Range(0, availableCardPool.Count);
-            GameObject selected = availableCardPool[randIndex];
-            selectedPrefabs.Add(selected);
+            GameObject prefab = availableCardPool[randIndex];
             availableCardPool.RemoveAt(randIndex);
-        }
 
-        // 카드 인스턴스 생성
-        for (int i = 0; i < selectedPrefabs.Count; i++)
-        {
-            GameObject card = Instantiate(
-                selectedPrefabs[i],
-                spawnPoint.position + Vector3.right * i * 1.5f,
-                Quaternion.identity
-            );
-            card.transform.eulerAngles = new Vector3(32f, 0f, 0f);
+            Vector3 pos = spawnPoint.position + Vector3.right * (drawList.Count) * 1.5f;
+
+            GameObject card = Instantiate(prefab, pos, Quaternion.Euler(32f, 0f, 0f));
             drawList.Add(card);
         }
+        RearrangeCards();
     }
 
-    // 선택된 카드만 리롤 (선택 안 한 카드는 유지)
-    public void RerollCards()
+    public void RemoveCardsAndRefill(List<GameObject> cardsToRemove)
     {
-        var selectedCards = CardSelected.Instance.selectedCards;
-
-        for (int i = drawList.Count - 1; i >= 0; i--)
+        // 카드 제거
+        foreach (var card in cardsToRemove)
         {
-            GameObject card = drawList[i];
-
-            if (selectedCards.Contains(card))
+            if (drawList.Contains(card))
             {
+                drawList.Remove(card);
                 Destroy(card);
-                drawList.RemoveAt(i);
-
-                // 새 카드가 남아 있다면 교체
-                if (availableCardPool.Count > 0)
-                {
-                    int randIndex = Random.Range(0, availableCardPool.Count);
-                    GameObject newCardPrefab = availableCardPool[randIndex];
-                    availableCardPool.RemoveAt(randIndex);
-
-                    GameObject newCard = Instantiate(
-                        newCardPrefab,
-                        spawnPoint.position + Vector3.right * i * 1.5f,
-                        Quaternion.identity
-                    );
-                    newCard.transform.eulerAngles = new Vector3(32f, 0f, 0f);
-                    drawList.Insert(i, newCard);
-                }
             }
         }
 
-        CardSelected.Instance.ClearSelection();
-    }
+        // 남은 카드 수
+        int currentHandSize = drawList.Count;
 
-    // 선택한 카드로 공격하고 사라지게 한 뒤, 빈 자리 채우기
-    public void UseSelectedCardsForAttack()
-    {
-        var selectedCards = CardSelected.Instance.selectedCards;
-
-        for (int i = drawList.Count - 1; i >= 0; i--)
+        // 최대 패 사이즈까지 부족한 만큼만 카드 드로우
+        int cardsToDraw = maxHandSize - currentHandSize;
+        if (cardsToDraw > 0)
         {
-            GameObject card = drawList[i];
-
-            if (selectedCards.Contains(card))
-            {
-                Destroy(card);
-                drawList.RemoveAt(i);
-
-                // 카드 소모되므로 다시 채움
-                if (availableCardPool.Count > 0)
-                {
-                    int randIndex = Random.Range(0, availableCardPool.Count);
-                    GameObject newCardPrefab = availableCardPool[randIndex];
-                    availableCardPool.RemoveAt(randIndex);
-
-                    GameObject newCard = Instantiate(
-                        newCardPrefab,
-                        spawnPoint.position + Vector3.right * i * 1.5f,
-                        Quaternion.identity
-                    );
-                    newCard.transform.eulerAngles = new Vector3(32f, 0f, 0f);
-                    drawList.Insert(i, newCard);
-                }
-            }
+            DrawCards(cardsToDraw);
         }
 
-        CardSelected.Instance.ClearSelection();
+        RearrangeCards();
+    }
+
+    private void RearrangeCards()
+    {
+        for (int i = 0; i < drawList.Count; i++)
+        {
+            drawList[i].transform.position = spawnPoint.position + Vector3.right * i * 1.5f;
+        }
+    }
+
+    public void OnRerollSelected()
+    {
+        var selectedCards = cardSelected.GetSelectedCards();
+        if (selectedCards.Count > 0)
+        {
+            RemoveCardsAndRefill(selectedCards);
+            cardSelected.ClearSelection();
+        }
     }
 }

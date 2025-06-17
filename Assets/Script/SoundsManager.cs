@@ -1,30 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundsManager : MonoBehaviour
 {
-    public static SoundsManager Instance; // 싱글턴 인스턴스
+    public static SoundsManager Instance;
     public AudioSource BackgroundBGM;
+    public AudioClip mainBGM;
+    public AudioClip battleBGM;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 이 오브젝트는 씬이 바뀌어도 유지
+            DontDestroyOnLoad(gameObject);
+
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 구독
         }
         else if (Instance != this)
         {
-            Destroy(gameObject); // 이미 존재하는 인스턴스가 있다면 자신 파괴
+            Destroy(gameObject);
         }
     }
 
-    void Start()
+    private void Start()
     {
-        if (!BackgroundBGM.isPlaying)
+        PlayMainBGM();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MonsterBattle")
         {
+            PlayBattleBGM();
+        }
+        else if (scene.name == "MainMenu" || scene.name == "SelectDifficulty" || scene.name == "MapSelect")
+        {
+            PlayMainBGM();
+        }
+        else
+        {
+            // 필요시 기본 BGM 재생
+            PlayMainBGM();
+        }
+    }
+
+    private void PlayMainBGM()
+    {
+        if (BackgroundBGM.clip != mainBGM)
+        {
+            BackgroundBGM.clip = mainBGM;
             BackgroundBGM.Play();
         }
+    }
+
+    private void PlayBattleBGM()
+    {
+        if (BackgroundBGM.clip != battleBGM)
+        {
+            BackgroundBGM.clip = battleBGM;
+            BackgroundBGM.Play();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 42
-  rank: 42
-  cardClass: 0
+  rank: 6
+  cardClass: 3
   zodiacName: Horse
 --- !u!114 &-715169244217396962
 MonoBehaviour:

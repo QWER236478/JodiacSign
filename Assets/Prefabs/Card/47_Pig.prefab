@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 47
-  rank: 47
-  cardClass: 0
+  rank: 11
+  cardClass: 3
   zodiacName: Pig
 --- !u!114 &2411004168169066812
 MonoBehaviour:

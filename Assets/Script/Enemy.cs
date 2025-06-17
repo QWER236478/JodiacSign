@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
 
         if (player != null)
         {
-            player.TakeDamage(attackDamage);
+            player.TakeDamage(10);
         }
     }
 
@@ -98,8 +98,8 @@ public class Enemy : MonoBehaviour
     public void EnemyDie()
     {
         Debug.Log("적 사망 상태");
+        DyingSounds.Play();
         DieEffect.SetActive(true);
         Destroy(gameObject);
-        DyingSounds.Play();
     }
 }
